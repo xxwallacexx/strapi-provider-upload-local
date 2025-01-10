@@ -12,7 +12,7 @@ module.exports = {
   provider: "strapi-provider-upload-local",
   name: "Local server",
   init() {
-    const uploadDir = path.resolve(strapi.dir);
+    const uploadDir = strapi.dir;
 
     const formatDate = () => {
       const date = new Date();
