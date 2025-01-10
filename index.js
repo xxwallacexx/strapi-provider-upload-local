@@ -8,11 +8,16 @@
 const fs = require("fs");
 const path = require("path");
 
+const UPLOADS_FOLDER_NAME = "uploads";
+
 module.exports = {
   provider: "strapi-provider-upload-local",
   name: "Local server",
   init() {
-    const uploadDir = strapi.dir;
+    const uploadDir = path.resolve(
+      strapi.dirs.static.public,
+      UPLOADS_FOLDER_NAME
+    );
 
     const formatDate = () => {
       const date = new Date();
@@ -28,10 +33,11 @@ module.exports = {
         return new Promise((resolve, reject) => {
           // write file in public/assets folder
           const folder = file.path
-            ? `/uploads/${formatDate()}/${file.path}`
-            : `/uploads/${formatDate()}`;
+            ? `/${formatDate()}/${file.path}`
+            : `/${formatDate()}`;
 
           const dir = path.join(uploadDir, folder);
+
 
           if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir);
@@ -42,7 +48,7 @@ module.exports = {
               return reject(err);
             }
 
-            file.url = `${folder}/${file.hash}${file.ext}`;
+            file.url = `/${UPLOADS_FOLDER_NAME}${folder}/${file.hash}${file.ext}`;
 
             resolve();
           });
