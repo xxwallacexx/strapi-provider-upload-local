@@ -11,8 +11,8 @@ const path = require("path");
 module.exports = {
   provider: "strapi-provider-upload-local",
   name: "Local server",
-  init({ path: custPath } = {}) {
-    const uploadDir = path.resolve(strapi.dir, custPath);
+  init() {
+    const uploadDir = path.resolve(strapi.dir);
 
     const formatDate = () => {
       const date = new Date();
@@ -30,7 +30,6 @@ module.exports = {
           const folder = file.path
             ? `/uploads/${formatDate()}/${file.path}`
             : `/uploads/${formatDate()}`;
-
 
           const dir = path.join(uploadDir, folder);
 
