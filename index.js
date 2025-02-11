@@ -40,7 +40,7 @@ module.exports = {
 
 
           if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir);
+						fs.mkdirSync(dir, { recursive: true });
           }
 
           fs.writeFile(`${dir}/${file.hash}${file.ext}`, file.buffer, (err) => {
